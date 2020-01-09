@@ -1,14 +1,14 @@
 Name: libcxgb3
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
 Url: http://www.openfabrics.org/
 Source: http://www.openfabrics.org/downloads/cxgb3/%{name}-%{version}.tar.gz
-Source1: libcxgb3-modprobe.conf
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libibverbs-devel >= 1.1.3, libtool
+Requires: rdma >= 6.7_3.15-1
 Obsoletes: %{name}-devel
 ExcludeArch: s390 s390x
 Provides: libibverbs-driver.%{_arch}
@@ -33,7 +33,6 @@ Static version of libcxgb3 that may be linked directly to an application.
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-install -p -m 644 -D %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/modprobe.d/libcxgb3.conf
 # remove unpackaged files from the buildroot
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
@@ -44,7 +43,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_libdir}/*.so*
 %{_sysconfdir}/libibverbs.d/*.driver
-%{_sysconfdir}/modprobe.d/libcxgb3.conf
 %doc AUTHORS COPYING README
 
 %files static
@@ -52,6 +50,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Thu Mar 12 2015 Doug Ledford <dledford@redhat.com> - 1.3.1-3
+- Remove libcxgb3.conf modprobe file and put it into rdma package
+- Related: bz1163527
+
 * Wed Jun 18 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-2
 - Bump and rebuild against latest libibverbs
 - Related: bz854655
