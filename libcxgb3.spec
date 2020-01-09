@@ -1,6 +1,6 @@
 Name: libcxgb3
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libibverbs-devel >= 1.1.3, libtool
 Obsoletes: %{name}-devel
 ExcludeArch: s390 s390x
-Provides: libibverbs-driver
+Provides: libibverbs-driver.%{_arch}
 %description
 Userspace hardware driver for use with the libibverbs InfiniBand/iWARP verbs
 library.  This driver enables Chelsio iWARP capable ethernet devices.
@@ -52,6 +52,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Mon Jul 25 2011 Doug Ledford <dledford@redhat.com> - 1.3.0-2
+- Add missing arch macro to libibverbs-driver provide
+- Related: bz725016
+
 * Thu Feb 03 2011 Doug Ledford <dledford@redhat.com> - 1.3.0-1
 - Update to latest upstream version
 - Resolves: bz675025
