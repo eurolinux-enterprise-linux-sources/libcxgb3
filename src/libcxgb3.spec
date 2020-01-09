@@ -1,7 +1,7 @@
-%define ver 1.3.0
+%define ver 1.3.1
 
 Name: libcxgb3
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 Summary: Chelsio T3 RNIC Open Fabrics Userspace Library
 

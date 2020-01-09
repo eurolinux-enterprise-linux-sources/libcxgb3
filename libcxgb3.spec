@@ -1,6 +1,6 @@
 Name: libcxgb3
-Version: 1.3.0
-Release: 2%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
@@ -52,6 +52,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.a
 
 %changelog
+* Mon Jan 23 2012 Doug Ledford <dledford@redhat.com> - 1.3.1-1
+- Update to latest upstream release
+- Bump and rebuild against new libibverbs
+- Related: bz750609
+
 * Mon Jul 25 2011 Doug Ledford <dledford@redhat.com> - 1.3.0-2
 - Add missing arch macro to libibverbs-driver provide
 - Related: bz725016
