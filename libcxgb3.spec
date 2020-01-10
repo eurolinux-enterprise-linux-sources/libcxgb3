@@ -1,6 +1,6 @@
 Name: libcxgb3
 Version: 1.3.1
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
@@ -59,6 +59,13 @@ rm -rf %{buildroot}
 %{_libdir}/*.a
 
 %changelog
+* Mon Mar 03 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-5
+- Bump and rebuild against updated libibverbs
+- Related: bz1062281
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.3.1-4
+- Mass rebuild 2013-12-27
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
