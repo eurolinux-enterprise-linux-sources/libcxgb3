@@ -1,6 +1,6 @@
 Name: libcxgb3
 Version: 1.3.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
@@ -57,6 +57,10 @@ rm -rf %{buildroot}
 %{_libdir}/*.a
 
 %changelog
+* Fri Jun 05 2015 Doug Ledford <dledford@redhat.com> - 1.3.1-8
+- Bump and rebuild
+- Related: bz1186159
+
 * Tue Dec 23 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-7
 - Remove modprobe file and move it to rdma package
 - Add requires on rdma package
