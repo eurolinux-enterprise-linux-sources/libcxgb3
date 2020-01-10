@@ -1,17 +1,17 @@
 Name: libcxgb3
 Version: 1.3.1
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: Chelsio T3 iWARP HCA Userspace Driver
 Group: System Environment/Libraries
 License: GPLv2 or BSD
 Url: http://www.openfabrics.org/
 Source: http://www.openfabrics.org/downloads/cxgb3/%{name}-%{version}.tar.gz
-Source1: libcxgb3-modprobe.conf
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libibverbs-devel > 1.1.4, libtool
-%ifnarch ia64 %{sparc} %{arm}
+%ifnarch ia64 %{sparc}
 BuildRequires: valgrind-devel
 %endif
+Requires: rdma >= 7.1_3.17-4.el7
 Obsoletes: %{name}-devel
 ExcludeArch: s390 s390x
 Provides: libibverbs-driver.%{_arch}
@@ -30,7 +30,7 @@ Static version of libcxgb3 that may be linked directly to an application.
 %setup -q
 
 %build
-%ifnarch ia64 %{sparc} %{arm}
+%ifnarch ia64 %{sparc}
 %configure --with-valgrind
 %else
 %configure
@@ -40,7 +40,6 @@ Static version of libcxgb3 that may be linked directly to an application.
 %install
 rm -rf %{buildroot}
 %{__make} install DESTDIR=%{buildroot}
-install -p -m 644 -D %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/modprobe.d/libcxgb3.conf
 # remove unpackaged files from the buildroot
 rm -f %{buildroot}%{_libdir}/*.la
 
@@ -51,7 +50,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %{_libdir}/*.so*
 %{_sysconfdir}/libibverbs.d/*.driver
-%{_sysconfdir}/modprobe.d/libcxgb3.conf
 %doc AUTHORS COPYING README
 
 %files static
@@ -59,6 +57,17 @@ rm -rf %{buildroot}
 %{_libdir}/*.a
 
 %changelog
+* Tue Dec 23 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-7
+- Remove modprobe file and move it to rdma package
+- Add requires on rdma package
+- Related: bz1164618
+
+* Fri Oct 17 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-6
+- Update valgrind settings and build against newest valgrind libs
+  that resolve a register clobber issue on ppc (1142101)
+- Build against latest libibverbs
+- Related: bz1137044
+
 * Mon Mar 03 2014 Doug Ledford <dledford@redhat.com> - 1.3.1-5
 - Bump and rebuild against updated libibverbs
 - Related: bz1062281
